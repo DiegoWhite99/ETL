@@ -49,7 +49,32 @@ for col in df.columns:
 print("✅ Formatos de texto, fechas y números estandarizados")
 
 # ==================================================
-# 5. Validación de campos obligatorios
+# 5. Correcciones específicas solicitadas
+# ==================================================
+# Corrección de ciudades
+if "ciudad_act" in df.columns:
+    correcciones_ciudad = {
+        "vogotá": "bogotá",
+        "bogota%%": "bogotá",
+        "bogota": "bogotá",
+        "santiagho de caly": "santiago de cali",
+        "medellin": "medellín",
+        "barranquila": "barranquilla"
+    }
+    df["ciudad_act"] = df["ciudad_act"].replace(correcciones_ciudad)
+
+# CodDANE a entero
+if "coddane" in df.columns:
+    df["coddane"] = pd.to_numeric(df["coddane"], errors="coerce").fillna(0).astype(int)
+
+# Teléfono como texto (sin decimales)
+if "telefono" in df.columns:
+    df["telefono"] = df["telefono"].astype(str).str.replace(".0", "", regex=False)
+
+print("✅ Correcciones específicas aplicadas (ciudad, CodDANE, teléfono)")
+
+# ==================================================
+# 6. Validación de campos obligatorios
 # ==================================================
 columnas_obligatorias = ["nombre", "apellido", "matricula"]
 
@@ -62,14 +87,14 @@ for col in columnas_obligatorias:
             print(f"✅ Columna '{col}' completa")
 
 # ==================================================
-# 6. Guardar archivo limpio
+# 7. Guardar archivo limpio
 # ==================================================
-ruta_final = r"D:\Documents\Diego 2025\Aca BI\BD.xlsx"
+ruta_final = r"D:\Documents\Diego 2025\Aca BI\BD_Limpio.xlsx"
 df.to_excel(ruta_final, index=False)
 print("\n📊 Archivo limpio generado:", ruta_final)
 
 # ==================================================
-# 7. Crear diccionario de datos
+# 8. Crear diccionario de datos
 # ==================================================
 diccionario = pd.DataFrame({
     "columna": df.columns,
@@ -78,7 +103,7 @@ diccionario = pd.DataFrame({
     "regla_limpieza": ["Estandarizada en Sprint 1"] * len(df.columns)
 })
 
-ruta_dicc = r"D:\Documents\Diego 2025\Aca BI\BD.xlsx"
+ruta_dicc = r"D:\Documents\Diego 2025\Aca BI\Diccionario_Datos.xlsx"
 diccionario.to_excel(ruta_dicc, index=False)
 print("📘 Diccionario de datos actualizado:", ruta_dicc)
 
