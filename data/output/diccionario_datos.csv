@@ -1,0 +1,9 @@
+Campo,Tipo,Descripción,Restricciones,Ejemplo
+NombresGerenteGeneral_Act,object,Nombres del gerente general,"Máximo 100 caracteres, formato título",Nelson
+ApellidosGerenteGeneral_Act,object,Apellidos del gerente general,"Máximo 100 caracteres, formato título",Olarte
+NombresGerenteFinanciero_Act,object,Nombres del gerente financiero,"Máximo 100 caracteres, formato título",Alvaro
+ApellidosGerenteFinanciero_Act,object,Apellidos del gerente financiero,"Máximo 100 caracteres, formato título",Campos
+Ciudad_Act,object,Ciudad de la empresa,Valores normalizados de lista predefinida,BOGOTÁ
+CodDANE,float64,Código DANE de la ciudad,Exactamente 8 dígitos numéricos,
+Telefono_Act1,object,Teléfono principal,10 dígitos numéricos,120100660
+Telefono_Act2,object,Teléfono secundario,10 dígitos numéricos (opcional),
