@@ -86,12 +86,15 @@ def normalizar_ciudad(ciudad):
         "FLORENCIATRT": "FLORENCIA",
         "CARTAGENA DE INDIASZZ": "CARTAGENA",
         "YOPAL?)=": "YOPAL",
-        "MEDELLÍNN": "MEDELLÍN"
+        "MEDELLÍNN": "MEDELLÍN",
+        "BOGOTA": "BOGOTÁ",
+        "CALI": "SANTIAGO DE CALI",
+        "SANTIAGO DE CALI": "SANTIAGO DE CALI"
     }
     
     # Buscar corrección en el diccionario
     for patron, correccion in city_corrections.items():
-        if patron in ciudad:
+        if patron in ciudad.upper():
             return correccion
     
     # Si no encuentra corrección, normalizar el texto
@@ -161,6 +164,43 @@ def corregir_nombres_propios(texto):
     
     return ' '.join(palabras_corregidas)
 
+def eliminar_duplicados_avanzado(df):
+    """Elimina duplicados de manera más inteligente, considerando similitudes"""
+    print("Buscando y eliminando duplicados...")
+    
+    # Crear una columna de hash para identificar duplicados potenciales
+    df['hash_identidad'] = (
+        df['NombresGerenteGeneral_Act'].fillna('') + '|' +
+        df['ApellidosGerenteGeneral_Act'].fillna('') + '|' +
+        df['Ciudad_Act'].fillna('') + '|' +
+        df['CodDANE'].fillna('')
+    )
+    
+    # Encontrar duplicados exactos
+    duplicados_exactos = df.duplicated(keep='first')
+    print(f"Duplicados exactos encontrados: {duplicados_exactos.sum()}")
+    
+    # Encontrar duplicados basados en identidad (sin considerar teléfonos)
+    duplicados_identidad = df.duplicated(subset=['hash_identidad'], keep='first')
+    print(f"Duplicados por identidad encontrados: {duplicados_identidad.sum()}")
+    
+    # Mostrar ejemplos de duplicados
+    if duplicados_identidad.sum() > 0:
+        print("\nEjemplos de registros duplicados:")
+        duplicados_df = df[duplicados_identidad].head(3)
+        for _, row in duplicados_df.iterrows():
+            print(f"  - {row['NombresGerenteGeneral_Act']} {row['ApellidosGerenteGeneral_Act']} en {row['Ciudad_Act']}")
+    
+    # Eliminar duplicados por identidad (mantener el primero)
+    df_sin_duplicados = df.drop_duplicates(subset=['hash_identidad'], keep='first')
+    
+    # Eliminar la columna temporal
+    df_sin_duplicados = df_sin_duplicados.drop('hash_identidad', axis=1)
+    
+    print(f"Registros después de eliminar duplicados: {len(df_sin_duplicados)}")
+    
+    return df_sin_duplicados
+
 def limpiar_datos(df):
     """Función principal para limpiar el dataframe"""
     print("Iniciando limpieza de datos...")
@@ -196,7 +236,7 @@ def limpiar_datos(df):
         df_clean['CodDANE'] = df_clean['CodDANE'].apply(validar_codigo_dane)
     
     # 7. Normalizar teléfonos
-    phone_columns = [col for col in df_clean.columns if 'telefono' in col.lower()]
+    phone_columns = [col for col in df_clean.columns if 'telefono' in col.lower() or 'Telefono' in col]
     for col in phone_columns:
         df_clean[col] = df_clean[col].apply(normalizar_telefono)
     
@@ -205,11 +245,8 @@ def limpiar_datos(df):
     for col in name_columns:
         df_clean[col] = df_clean[col].replace(['NULL', 'NAN', ''], np.nan)
     
-    # 9. Eliminar duplicados exactos
-    duplicados_antes = len(df_clean)
-    df_clean = df_clean.drop_duplicates()
-    duplicados_eliminados = duplicados_antes - len(df_clean)
-    print(f"Eliminados {duplicados_eliminados} registros duplicados")
+    # 9. Eliminar duplicados de manera avanzada
+    df_clean = eliminar_duplicados_avanzado(df_clean)
     
     return df_clean
 
@@ -291,7 +328,7 @@ def main():
     diccionario_datos = generar_diccionario_datos(df_clean)
     
     # Generar lista de ciudades normalizadas
-    ciudades_normalizadas = generar_ciudades_normalizadas()  # CORREGIDO: nombre correcto de la función
+    ciudades_normalizadas = generar_ciudades_normalizadas()
     
     # Guardar resultados
     ruta_csv = config['output_data_dir'] / "datos_limpios.csv"
@@ -340,6 +377,10 @@ def main():
     dane_validos = df_clean['CodDANE'].apply(lambda x: x is not np.nan and len(str(x)) == 8).sum()
     porcentaje_dane_validos = (dane_validos / total_registros * 100).round(2)
     print(f"Códigos DANE válidos: {porcentaje_dane_validos}%")
+    
+    # Verificar duplicados finales
+    duplicados_finales = df_clean.duplicated().sum()
+    print(f"Duplicados finales: {duplicados_finales}")
     
     print("\n¡Proceso completado exitosamente!")
 
