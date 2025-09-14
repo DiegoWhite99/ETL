@@ -1,0 +1,65 @@
+{
+  "estadisticas_basicas": {
+    "total_registros": 9641,
+    "total_columnas": 8,
+    "registros_por_tipo_dato": {
+      "object": 5,
+      "float64": 3
+    }
+  },
+  "valores_nulos": {
+    "por_columna": {
+      "NombresGerenteGeneral_Act": 17,
+      "ApellidosGerenteGeneral_Act": 25,
+      "NombresGerenteFinanciero_Act": 2396,
+      "ApellidosGerenteFinanciero_Act": 2411,
+      "Ciudad_Act": 0,
+      "CodDANE": 9641,
+      "Telefono_Act1": 305,
+      "Telefono_Act2": 7037
+    },
+    "porcentaje_por_columna": {
+      "NombresGerenteGeneral_Act": 0.18,
+      "ApellidosGerenteGeneral_Act": 0.26,
+      "NombresGerenteFinanciero_Act": 24.85,
+      "ApellidosGerenteFinanciero_Act": 25.01,
+      "Ciudad_Act": 0.0,
+      "CodDANE": 100.0,
+      "Telefono_Act1": 3.16,
+      "Telefono_Act2": 72.99
+    },
+    "total_nulos": 21832,
+    "porcentaje_total_nulos": 28.31
+  },
+  "analisis_ciudades": {
+    "total_ciudades_unicas": 21,
+    "top_10_ciudades": {
+      "BOGOTÁ": 1598,
+      "SANTIAGO DE CALI": 1206,
+      "VILLAVICENCIO": 771,
+      "MANIZALES": 717,
+      "POPAYÁN": 420,
+      "SAN JOSÉ DE CÚCUTA": 402,
+      "SAN JOSÉ DEL GUAVIARE": 398,
+      "SAN JUAN DE PASTO": 393,
+      "CALI": 389,
+      "BOGOT2": 385
+    },
+    "distribucion_ciudades": {
+      "BOGOTÁ": 0.1657504408256405,
+      "SANTIAGO DE CALI": 0.12509075822010166,
+      "VILLAVICENCIO": 0.07997095736956747,
+      "MANIZALES": 0.07436987864329427,
+      "POPAYÁN": 0.04356394564879162,
+      "SAN JOSÉ DE CÚCUTA": 0.04169691940670055,
+      "SAN JOSÉ DEL GUAVIARE": 0.04128202468623587,
+      "SAN JUAN DE PASTO": 0.040763406285655016,
+      "CALI": 0.040348511565190336,
+      "BOGOT2": 0.03993361684472565
+    }
+  },
+  "analisis_gerentes": {
+    "total_gerentes_unicos": 9203,
+    "gerentes_multiple_empresas": {
+      "total_gerentes_multiple_empresas": 353,
+      "gerentes_con_mas_empresas": {

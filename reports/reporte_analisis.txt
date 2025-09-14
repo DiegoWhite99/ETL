@@ -1,0 +1,33 @@
+REPORTE DE ANÁLISIS - DATOS DE EMPRESAS
+==================================================
+
+Fecha de generación: 2025-09-14 12:23:34
+
+ESTADÍSTICAS BÁSICAS:
+- Total de registros: 9641
+- Total de columnas: 8
+
+ANÁLISIS DE CIUDADES:
+- Ciudades únicas: 21
+- Top 10 ciudades:
+  - BOGOTÁ: 1598 empresas
+  - SANTIAGO DE CALI: 1206 empresas
+  - VILLAVICENCIO: 771 empresas
+  - MANIZALES: 717 empresas
+  - POPAYÁN: 420 empresas
+  - SAN JOSÉ DE CÚCUTA: 402 empresas
+  - SAN JOSÉ DEL GUAVIARE: 398 empresas
+  - SAN JUAN DE PASTO: 393 empresas
+  - CALI: 389 empresas
+  - BOGOT2: 385 empresas
+
+ANÁLISIS DE GERENTES:
+- Gerentes únicos: 9203
+- Gerentes en múltiples empresas: 353
+
+ANÁLISIS DE TELÉFONOS:
+- Teléfonos principales válidos: 96.84%
+- Teléfonos secundarios válidos: 27.01%
+
+CALIDAD DE DATOS:
+- Porcentaje total de valores nulos: 28.31%
