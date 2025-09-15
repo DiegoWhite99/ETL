@@ -206,7 +206,17 @@ Pasos para reproducir
 Capturas de pantalla (si aplica)
 
 🎉 Reconocimientos
-Datos proporcionados por [Nombre de la organización]
+Este es un proyecto educativo para inteliegecia de negocios;
+los participantes son:
+
+Cristian David Corrales Mendoza – Ficha 54467
+Diego Fernando Casteblanco Jimenez – Ficha 54460
+Eliana Lily Mesías Caicedo – Ficha 53356
+Jonathan Andres Romero Galiano – Ficha 50104
+Wilmar Yamith Ospina - Ficha 50104
+Programa: Ingeniería de Sistemas
+
+
 
 Equipo de desarrollo de Business Intelligence
 
@@ -226,3 +236,4 @@ text
 Sigue las instrucciones del README para ejecutar el proyecto
 
 El requirements.txt contiene todas las librerías necesarias para que el proyecto funcione correctamente, y el README.md proporciona documentación completa para cualquier persona que quiera usar o contribuir al proyecto.
+
